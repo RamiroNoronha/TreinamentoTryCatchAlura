@@ -10,16 +10,10 @@ namespace TreinandoTryCatchAlura
             {
                 Metodo();
             }
-            catch (DivideByZeroException excecao)
+            catch (Exception e)
             {
-
-                Console.WriteLine(excecao.Message);
-                Console.WriteLine(excecao.StackTrace);
-            }
-            catch (NullReferenceException excecao)
-            {
-                Console.WriteLine(excecao.Message);
-                Console.WriteLine(excecao.StackTrace);
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
             }
 
             Console.ReadLine();
@@ -27,7 +21,18 @@ namespace TreinandoTryCatchAlura
         }
         public static int Dividir(int dividendo, int divisor)
         {
-            return dividendo / divisor;
+            try
+            {
+                return dividendo / divisor;
+            }
+            catch (DivideByZeroException e)
+            {
+                Console.WriteLine("O dividendo era " + dividendo + " e o divisor era " + divisor);
+                Console.WriteLine(e.Message);
+                throw; //O throw serve para quando o método exige retorno, mas há um erro de compilação, então ele sai do método
+                // Nada mais pode ser executado depois do throw
+            }
+            
         }
 
         public static void Metodo()
@@ -39,8 +44,9 @@ namespace TreinandoTryCatchAlura
         {
             ClasseTeste teste = new ClasseTeste();
             teste = null;
-            teste.MetodoTestre(3);// método criado para gerar erro de NullReference
+            //teste.MetodoTestre(3);// método criado para gerar erro de NullReference
             Dividir(10, divisor);
+        
         }
     }
 
